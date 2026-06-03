@@ -13,7 +13,6 @@
         description = 'A worn sign for asking strangers for spare change. Use to start or stop begging.',
         client = {
             image = 'cardboard_sign.png',
-            event = 'w2f-begging:client:useItem',
             export = 'w2f-begging.useCardboardSign',
         },
     },
@@ -27,7 +26,6 @@
         description = 'An old cup to catch coins from passersby. Use to start or stop begging.',
         client = {
             image = 'begging_cup.png',
-            event = 'w2f-begging:client:useItem',
             export = 'w2f-begging.useBeggingCup',
         },
     },

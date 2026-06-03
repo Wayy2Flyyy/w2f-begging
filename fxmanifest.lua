@@ -4,14 +4,10 @@ lua54 'yes'
 
 name 'w2f-begging'
 author 'W2F'
-version '1.0.0'
-description 'Passive homeless begging roleplay — cardboard sign, NPC donations (Qbox / ox_inventory)'
+version '1.1.0'
+description 'Passive homeless begging roleplay — Qbox-first with QBCore and ESX support'
 
-dependencies {
-    'ox_lib',
-    'ox_inventory',
-    'qbx_core',
-}
+dependency 'ox_lib'
 
 shared_scripts {
     '@ox_lib/init.lua',
