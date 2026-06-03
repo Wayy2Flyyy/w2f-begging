@@ -7,6 +7,7 @@ local npcThreadRunning = false
 local pedCooldowns = {}
 local activeApproachCount = 0
 local approachingPeds = {}
+local stopBegging
 
 local function notify(description, nType)
     lib.notify({
@@ -18,6 +19,10 @@ end
 
 local function setServerActive(active)
     TriggerServerEvent('w2f-begging:server:setActive', active)
+end
+
+local function requestServerActive(itemName)
+    return lib.callback.await('w2f-begging:setActive', false, itemName) == true
 end
 
 local function canBeg()
@@ -240,6 +245,9 @@ local function handleNpcApproach(npc)
         notify(Config.Notify.donated:format(result.amount), 'success')
     elseif result and result.reason == 'capped' then
         notify(Config.Notify.capped, 'error')
+    elseif result and result.reason == 'item' then
+        stopBegging(true)
+        notify(Config.Notify.missingItem, 'error')
     end
 
     releaseNpc(npc, true)
@@ -341,7 +349,7 @@ local function startAnimThread()
     end)
 end
 
-local function stopBegging(silent)
+stopBegging = function(silent)
     if not isBegging then return end
     isBegging = false
     setServerActive(false)
@@ -366,8 +374,13 @@ local function startBegging(itemName)
         return false
     end
 
+    if not requestServerActive(activeItem) then
+        activeItem = nil
+        notify(Config.Notify.missingItem, 'error')
+        return false
+    end
+
     isBegging = true
-    setServerActive(true)
     attachSignProp()
     playBegAnim()
     startAnimThread()

@@ -2,7 +2,14 @@ Config = {}
 
 Config.Debug = false
 
--- Inventory items that toggle begging (see ox_inventory/data/items.lua).
+-- Qbox is preferred when auto-detecting. Supported: 'auto', 'qbox', 'qbcore', 'esx'.
+Config.Framework = 'auto'
+
+-- ox_inventory is preferred when auto-detecting. Supported: 'auto', 'ox', 'qb', 'esx'.
+-- Qbox requires ox_inventory; native QB and ESX inventories are also supported.
+Config.Inventory = 'auto'
+
+-- Inventory items that toggle begging. Add matching item definitions to your inventory.
 Config.Items = {
     cardboard_sign = {
         signProp = `prop_beggers_sign_03`,
@@ -66,6 +73,7 @@ Config.Notify = {
     cannot = 'You cannot beg right now.',
     unavailable = 'Begging is unavailable right now.',
     invalidItem = 'This item cannot be used.',
+    missingItem = 'You no longer have the item needed to beg.',
 }
 
 -- Key to stop begging while the sign is out (rebind in GTA settings).
